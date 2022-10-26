@@ -5,7 +5,7 @@
 class MyClass
 {
 public:
-    SomeClass(std::string n) : name(n), mNumber(0.0) {}
+    MyClass(std::string n) : name(n), mNumber(0.0) {}
 
     std::string name;
     double getNumber() const { return mNumber; }
