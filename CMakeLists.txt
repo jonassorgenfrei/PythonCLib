@@ -31,7 +31,10 @@ include_directories(${STB})
 file(GLOB SRC_FILES src/*.cpp)
 
 add_library(pyClass SHARED ${SRC_FILES})
+
 set_target_properties(pyClass PROPERTIES SUFFIX ".pyd")
+
+add_executable(CppPythonLib src/main.cpp)
 
 # linking
 #########
@@ -48,5 +51,25 @@ endif()
 
 # install
 #########
+set(PYTHON_PACKAGE_RELATIVE_PATH lib/python/pyClass)
+set(INSTALL_PYTHONPACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/${PYTHON_PACKAGE_RELATIVE_PATH})
 
-install(TARGETS pyClass DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pyClass")
+install(TARGETS pyClass DESTINATION ${INSTALL_PYTHONPACKAGE_DIR})
+
+# test 
+######
+
+enable_testing()
+	
+set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/testenv)
+set(_testPYTHONPATH "PYTHONPATH=${INSTALL_PYTHONPACKAGE_DIR};$ENV{PYTHONPATH}")
+
+add_test(
+  NAME myClassTest
+  COMMAND ${Python_EXECUTABLE} -m unittest discover -s ${TEST_SOURCE_DIR}/myClass -p "*.py"
+)
+
+set_tests_properties(myClassTest
+    PROPERTIES ENVIRONMENT ${_testPYTHONPATH})
+
+
