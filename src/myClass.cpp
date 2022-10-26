@@ -2,13 +2,12 @@
 #include <string>
 #include <sstream>
 
-class SomeClass
+class MyClass
 {
 public:
     SomeClass(std::string n) : name(n), mNumber(0.0) {}
 
     std::string name;
-
     double getNumber() const { return mNumber; }
     void setNumber(double n)
     {
@@ -16,7 +15,6 @@ public:
             n = -1;
         mNumber = n;
     }
-
 private:
     double mNumber;
 };
@@ -27,9 +25,9 @@ using namespace boost::python;
 
 BOOST_PYTHON_MODULE(pyClass)
 {
-    class_<SomeClass>("SomeClass", init<std::string>())
-        .def_readwrite("name", &SomeClass::name)
-        .add_property("number", &SomeClass::getNumber, &SomeClass::setNumber)
+    class_<MyClass>("MyClass", init<std::string>())
+        .def_readwrite("name", &MyClass::name)
+        .add_property("number", &MyClass::getNumber, &MyClass::setNumber)
         ;
 
 }
