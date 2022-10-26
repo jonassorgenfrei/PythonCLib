@@ -34,8 +34,6 @@ add_library(pyClass SHARED ${SRC_FILES})
 
 set_target_properties(pyClass PROPERTIES SUFFIX ".pyd")
 
-add_executable(CppPythonLib src/main.cpp)
-
 # linking
 #########
 target_link_libraries(pyClass Boost::python ${Python_LIBRARIES})
