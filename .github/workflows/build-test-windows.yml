@@ -11,7 +11,7 @@ jobs:
       # You can use PyPy versions in python-version.
       # For example, pypy-2.7 and pypy-3.8
       matrix:
-        python-version: ["3.7"]
+        python-version: ["3.9"]
         
     steps:
     - name: Checkout branch
