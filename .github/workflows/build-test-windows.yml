@@ -33,7 +33,7 @@ jobs:
       uses: egor-tensin/build-boost@v1
       with:
         version: 1.78.0
-        libraries: system python
+        libraries: header system python
         platform: x64
         configuration: Release
         toolset: vs2022
@@ -45,13 +45,12 @@ jobs:
     - name: Show boost
       run: | 
         tree /F '${{ steps.boost.outputs.root }}'
-    #- name: Configure
-    #  run: |
-    #    mkdir build
-    #    cd build
-    #    cmake .. -DBoost_USE_STATIC_LIBS=ON 
-    #    # -D "BOOST_ROOT=${{ steps.boost.outputs.root }}"  -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}"
+    - name: Configure
+      run: |
+        mkdir build
+        cd build
+        cmake .. -D "BOOST_ROOT=${{ steps.boost.outputs.root }}" -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}" 
     #  env:
     #    BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
-    #- name: Build
-    #  run: cmake --build build --parallel --config Release
+    - name: Build
+      run: cmake --build build --parallel --config Release
