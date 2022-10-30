@@ -20,35 +20,36 @@ jobs:
           python-version: ${{ matrix.python-version }}
     - name: Get cmake
       uses: lukka/get-cmake@latest
-    #- name: Install boost
-    #  uses: MarkusJx/install-boost@v2.3.1
-    #  id: install-boost
-    #  with:
-    #      boost_version: 1.78.0
-    #      link: static
-    #      platform_version: 2022
-    #      toolset: msvc
-    - name: Build Boost
-      id: boost
-      uses: egor-tensin/build-boost@v1
+    - name: Install boost
+      uses: MarkusJx/install-boost@v2.3.1
+      id: install-boost
       with:
-        version: 1.78.0
-        libraries: system python
-        platform: x64
-        configuration: Release
-        toolset: vs2022
-        static: 1
-    - name: Show paths
-      run: |
-        echo 'Boost has been unpacked to: %s\n' '${{ steps.boost.outputs.root }}'
-        echo 'Libraries can be found here: %s\n' '${{ steps.boost.outputs.librarydir }}'
-      shell: bash
+          boost_version: 1.78.0
+          link: static
+          platform_version: 2022
+          toolset: msvc
+    #- name: Build Boost
+    #  id: boost
+    #  uses: egor-tensin/build-boost@v1
+    #  with:
+    #    version: 1.78.0
+    #    libraries: system python
+    #    platform: x64
+    #    configuration: Release
+    #    toolset: vs2022
+    #    static: 1
+    #- name: Show paths
+    #  run: |
+    #    echo 'Boost has been unpacked to: %s\n' '${{ steps.boost.outputs.root }}'
+    #    echo 'Libraries can be found here: %s\n' '${{ steps.boost.outputs.librarydir }}'
+    #  shell: bash
     - name: Configure
       run: |
         mkdir build
         cd build
-        cmake .. -DBoost_USE_STATIC_LIBS=ON -D "BOOST_ROOT=${{ steps.boost.outputs.root }}"  -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}"
-   #   env:
-   #     BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+        cmake .. -DBoost_USE_STATIC_LIBS=ON 
+        # -D "BOOST_ROOT=${{ steps.boost.outputs.root }}"  -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}"
+      env:
+        BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
     - name: Build
       run: cmake --build build --parallel --config Release
