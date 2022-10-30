@@ -42,8 +42,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -DBoost_INCLUDE_DIR="${{steps.boost.outputs.root}}\include" -DBoost_LIBRARY_DIRS="${{steps.boost.outputs.root}}\lib"
-      env:
-        BOOST_ROOT: ${{ steps.boost.outputs.root }}
+        cmake .. -D "BOOST_ROOT=${{ steps.boost.outputs.root }}" \
+        -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}" \
     - name: Build
       run: cmake --build build --parallel --config Release
