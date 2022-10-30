@@ -25,7 +25,7 @@ jobs:
       id: install-boost
       with:
           boost_version: 1.78.0
-          link: static
+    #      link: static
           platform_version: 2022
           toolset: msvc
     #- name: Build Boost
@@ -47,7 +47,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -DBoost_USE_STATIC_LIBS=ON 
+        cmake .. # -DBoost_USE_STATIC_LIBS=ON 
         # -D "BOOST_ROOT=${{ steps.boost.outputs.root }}"  -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}"
       env:
         BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
