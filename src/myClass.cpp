@@ -1,6 +1,7 @@
 #include <boost/python.hpp>
 #include <string>
 #include <sstream>
+#include <vector>
 
 struct MyClassData {
     std::vector<std::string> paths;
