@@ -40,10 +40,10 @@ jobs:
         static: 1
     - name: Show paths
       run: |
-        printf 'Boost has been unpacked to: %s\n' '${{ steps.boost.outputs.root }}'
+        echo 'Boost has been unpacked to: %s\n' '${{ steps.boost.outputs.root }}'
         tree '${{ steps.boost.outputs.root }}'
-        printf 'Libraries can be found here: %s\n' '${{ steps.boost.outputs.librarydir }}'
-      shell: bash
+        echo 'Libraries can be found here: %s\n' '${{ steps.boost.outputs.librarydir }}'
+    #  shell: bash
     #- name: Configure
     #  run: |
     #    mkdir build
