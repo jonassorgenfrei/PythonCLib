@@ -28,10 +28,10 @@ jobs:
       with:
           boost_version: 1.78.0
           link: static
+          platform_version: 2022
+          toolset: msvc
     - name: Configure
       run: |
-        echo %BOOST_ROOT%
-        tree %BOOST_ROOT%
         mkdir build
         cd build
         cmake ..        
