@@ -28,6 +28,10 @@ include_directories(${STB})
 
 # main programm
 ###############
+if(Boost_USE_STATIC_LIBS)
+    add_definitions(-DBOOST_PYTHON_STATIC_LIB)
+endif()
+
 file(GLOB SRC_FILES src/*.cpp)
 
 add_library(pyClass SHARED ${SRC_FILES})
