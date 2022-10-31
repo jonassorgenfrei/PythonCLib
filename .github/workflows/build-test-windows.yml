@@ -44,13 +44,13 @@ jobs:
       shell: bash
     - name: Show boost
       run: | 
-        tree /F '${{ steps.boost.outputs.root }}'
+        tree /F '${{ steps.boost.outputs.librarydir }}'
     - name: Configure
       run: |
         mkdir build
         cd build
-        cmake .. -D "BOOST_ROOT=${{ steps.boost.outputs.root }}" -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}" 
-    #  env:
-    #    BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
+        cmake .. -D "BOOST_INCLUDEDIR=${{ steps.boost.outputs.root }} -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}" 
+      env:
+        BOOST_ROOT: ${{ steps.boost.outputs.root }}
     - name: Build
       run: cmake --build build --parallel --config Release
