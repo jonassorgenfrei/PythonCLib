@@ -28,28 +28,18 @@ jobs:
           link: static
           platform_version: 2022
           toolset: msvc
-    #- name: Build Boost
-    #  id: boost
-    #  uses: egor-tensin/build-boost@v1
-    #  with:
-    #    version: 1.78.0
-    #    libraries: system python
-    #    platform: x64
-    #    configuration: Release
-    #    toolset: vs2022
-    #    static: 1
-    #- name: Show paths
-    #  run: |
-    #    echo 'Boost has been unpacked to: %s\n' '${{ steps.boost.outputs.root }}'
-    #    echo 'Libraries can be found here: %s\n' '${{ steps.boost.outputs.librarydir }}'
-    #  shell: bash
     - name: Configure
       run: |
         mkdir build
         cd build
-        cmake .. -DBoost_USE_STATIC_LIBS=ON 
-        # -D "BOOST_ROOT=${{ steps.boost.outputs.root }}"  -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}"
+        cmake .. -DBoost_USE_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX="install"
       env:
         BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
     - name: Build
       run: cmake --build build --parallel --config Release
+    - name: Install
+      run: cmake --install build
+    - name: Test
+      run: |
+           cd build
+           ctest -C Release
