@@ -10,6 +10,10 @@ PROJECT(CppPythonLib VERSION 1.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+add_compile_options(
+    -fPIC
+)
+
 # INCLUDE
 #########
 
@@ -30,11 +34,9 @@ endif()
 # include
 include_directories(${Boost_INCLUDE_DIRS} ${Python_INCLUDE_DIRS})
 
-if (UNIX)
-    add_compile_options(
-        -fPIC
-    )
-endif()
+
+  
+
 
 
 # main programm
