@@ -70,8 +70,11 @@ install(TARGETS pyClass DESTINATION ${INSTALL_PYTHONPACKAGE_DIR})
 enable_testing()
 	
 set(TEST_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src/testenv)
+if (WIN32)
 set(_testPYTHONPATH "PYTHONPATH=${INSTALL_PYTHONPACKAGE_DIR};$ENV{PYTHONPATH}")
-
+else()
+set(_testPYTHONPATH "PYTHONPATH=${INSTALL_PYTHONPACKAGE_DIR}:$ENV{PYTHONPATH}")
+endif()
 add_test(
   NAME myClassTest
   COMMAND ${Python_EXECUTABLE} -m unittest discover -s ${TEST_SOURCE_DIR}/myClass -p "*.py"
