@@ -49,7 +49,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -D "BOOST_INCLUDEDIR=${{ steps.boost.outputs.root }} -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}" 
+        cmake .. -D "BOOST_INCLUDEDIR=${{ steps.boost.outputs.root }}" -D "BOOST_LIBRARYDIR=${{ steps.boost.outputs.librarydir }}" 
       env:
         BOOST_ROOT: ${{ steps.boost.outputs.root }}
     - name: Build
