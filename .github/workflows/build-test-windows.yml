@@ -33,7 +33,7 @@ jobs:
       uses: egor-tensin/build-boost@v1
       with:
         version: 1.78.0
-        libraries: system python
+        libraries: headers system python
         platform: x64
         configuration: Release
         toolset: vs2022
