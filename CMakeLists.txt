@@ -19,7 +19,13 @@ set (Boost_USE_STATIC_LIBS OFF CACHE BOOL "use static libraries from Boost")
 set (Boost_USE_MULTITHREADED ON)
 set (BUILD_SHARED_LIBS ON)
 find_package(Boost REQUIRED COMPONENTS python REQUIRED)
-find_package(Python REQUIRED COMPONENTS Interpreter Development)
+
+# python
+if(DEFINED USER_PYTHON_VERSION)
+	find_package(Python ${USER_PYTHON_VERSION} EXACT REQUIRED COMPONENTS Interpreter Development)
+else()
+	find_package(Python REQUIRED COMPONENTS Interpreter Development)
+endif()
 
 include_directories(${Boost_INCLUDE_DIRS} ${Python_INCLUDE_DIRS})
 
