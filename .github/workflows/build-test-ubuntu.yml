@@ -43,3 +43,4 @@ jobs:
       run: |
            cd build
            ctest -C Release
+           cat /home/runner/work/PythonCLib/PythonCLib/build/Testing/Temporary/LastTest.log
