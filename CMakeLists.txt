@@ -27,10 +27,15 @@ else()
 	find_package(Python REQUIRED COMPONENTS Interpreter Development)
 endif()
 
+# include
 include_directories(${Boost_INCLUDE_DIRS} ${Python_INCLUDE_DIRS})
 
-# include
-include_directories(${STB})
+if (UNIX)
+    add_compile_options(
+        -fPIC
+    )
+endif()
+
 
 # main programm
 ###############
