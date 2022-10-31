@@ -44,7 +44,9 @@ file(GLOB SRC_FILES src/*.cpp)
 
 add_library(pyClass SHARED ${SRC_FILES})
 
+SET_TARGET_PROPERTIES(name PROPERTIES PREFIX "")
 if (WIN32)
+	# for windows add .pyd
 	set_target_properties(pyClass PROPERTIES SUFFIX ".pyd")
 endif()
 
