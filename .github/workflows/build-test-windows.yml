@@ -40,5 +40,6 @@ jobs:
     - name: Install
       run: cmake --install build
     - name: Test
-      run: cd build
+      run: |
+           cd build
            ctest -C Release
