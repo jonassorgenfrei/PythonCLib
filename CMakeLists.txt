@@ -34,11 +34,6 @@ endif()
 # include
 include_directories(${Boost_INCLUDE_DIRS} ${Python_INCLUDE_DIRS})
 
-
-  
-
-
-
 # main programm
 ###############
 if(Boost_USE_STATIC_LIBS)
@@ -49,7 +44,9 @@ file(GLOB SRC_FILES src/*.cpp)
 
 add_library(pyClass SHARED ${SRC_FILES})
 
-set_target_properties(pyClass PROPERTIES SUFFIX ".pyd")
+if (WIN32)
+	set_target_properties(pyClass PROPERTIES SUFFIX ".pyd")
+endif()
 
 # linking
 #########
