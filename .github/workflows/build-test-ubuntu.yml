@@ -43,3 +43,7 @@ jobs:
       run: |
            cd build
            ctest -C Release
+    - name: Show Test Error
+      if: always()
+      run: |
+           cat /home/runner/work/PythonCLib/PythonCLib/build/Testing/Temporary/LastTest.log
