@@ -1,6 +1,6 @@
 name: build-and-test-windows
 
-run-name: "Test Windows: " ${{ github.event_name }}
+run-name: "Test Linux: ${{ github.event_name }}" 
 on: [push]
 
 jobs:
