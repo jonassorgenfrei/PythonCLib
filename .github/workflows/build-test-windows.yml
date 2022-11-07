@@ -21,7 +21,7 @@ jobs:
     - name: Get cmake
       uses: lukka/get-cmake@latest
     - name: Install boost
-      uses: MarkusJx/install-boost@latest
+      uses: MarkusJx/install-boost@v2.4.1
       id: install-boost
       with:
           boost_version: 1.80.0
