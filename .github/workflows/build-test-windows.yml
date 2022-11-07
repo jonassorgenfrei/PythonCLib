@@ -32,7 +32,7 @@ jobs:
       run: |
         mkdir build
         cd build
-        cmake .. -DBoost_USE_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX="install"
+        cmake .. -DBoost_USE_STATIC_LIBS=ON -DCMAKE_INSTALL_PREFIX="install" -DBoost_PYTHON_VERSION="${{ matrix.python-version }}"
       env:
         BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
     - name: Build
