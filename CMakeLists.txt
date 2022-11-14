@@ -36,13 +36,13 @@ if(UNIX)
     )
 endif()
 
-# main programm
+# pyClass Programm
 ###############
 if(Boost_USE_STATIC_LIBS)
     add_definitions(-DBOOST_PYTHON_STATIC_LIB)
 endif()
 
-file(GLOB SRC_FILES src/*.cpp)
+file(GLOB SRC_FILES src/myClass.cpp)
 
 add_library(pyClass SHARED ${SRC_FILES})
 
@@ -52,9 +52,26 @@ if (WIN32)
 	set_target_properties(pyClass PROPERTIES SUFFIX ".pyd")
 endif()
 
+# baseWrapper Programm
+###############
+if(Boost_USE_STATIC_LIBS)
+    add_definitions(-DBOOST_PYTHON_STATIC_LIB)
+endif()
+
+file(GLOB SRC_FILES src/baseWrapper.cpp)
+
+add_library(baseWrapper SHARED ${SRC_FILES})
+
+SET_TARGET_PROPERTIES(baseWrapper PROPERTIES PREFIX "")
+if (WIN32)
+	# for windows add .pyd
+	set_target_properties(baseWrapper PROPERTIES SUFFIX ".pyd")
+endif()
+
 # linking
 #########
 target_link_libraries(pyClass Boost::python ${Python_LIBRARIES})
+target_link_libraries(baseWrapper Boost::python ${Python_LIBRARIES})
 
 if (WIN32)
   # disable autolinking in boost
@@ -67,10 +84,11 @@ endif()
 
 # install
 #########
-set(PYTHON_PACKAGE_RELATIVE_PATH lib/python/pyClass)
+set(PYTHON_PACKAGE_RELATIVE_PATH lib/python/CppPythonLib)
 set(INSTALL_PYTHONPACKAGE_DIR ${CMAKE_INSTALL_PREFIX}/${PYTHON_PACKAGE_RELATIVE_PATH})
 
 install(TARGETS pyClass DESTINATION ${INSTALL_PYTHONPACKAGE_DIR})
+install(TARGETS baseWrapper DESTINATION ${INSTALL_PYTHONPACKAGE_DIR})
 
 # test 
 ######
@@ -87,8 +105,12 @@ add_test(
   NAME myClassTest
   COMMAND ${Python_EXECUTABLE} -m unittest discover -s ${TEST_SOURCE_DIR}/myClass -p "*.py"
 )
+add_test(
+  NAME baseWrapperTest
+  COMMAND ${Python_EXECUTABLE} -m unittest discover -s ${TEST_SOURCE_DIR}/baseWrapper -p "*.py"
+)
 
 set_tests_properties(myClassTest
     PROPERTIES ENVIRONMENT ${_testPYTHONPATH})
-
-
+set_tests_properties(baseWrapperTest
+    PROPERTIES ENVIRONMENT ${_testPYTHONPATH})
